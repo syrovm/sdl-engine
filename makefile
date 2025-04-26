@@ -1,16 +1,24 @@
+PROJECT_ROOT := $(shell pwd)
+GAME_DIR := src/game
+ENGINE_DIR := src/engine
+MAIN_PATH := src/main.c
+
+EXTERNAL_DEPENDENCY_PATHS := /usr/include/SDL2
+
 CC = clang
 
 # Compiler and linker flags
-ENGINE_INCLUDES = $(shell find $(./engine) -type d)
-GAME_INCLUDES = $(shell find $(./game) -type d)
-CFLAGS = $(foreach dir,$(ENGINE_INCLUDES),-I$(dir)) $(foreach dir,$(GAME_INCLUDES),-I$(dir)) -I/usr/include/SDL2 -Wall -g # Add -O2 for release builds
+ENGINE_INCLUDES = $(shell find $(ENGINE_DIR) -type d)
+GAME_INCLUDES = $(shell find $(GAME_DIR) -type d)
+
+CFLAGS = $(foreach dir,$(ENGINE_INCLUDES),-I$(dir)) $(foreach dir,$(GAME_INCLUDES),-I$(dir)) $(foreach dir,$(EXTERNAL_DEPENDENCY_PATHS),-I$(dir)) -Wall -g 
 LDFLAGS = -lSDL2 -lSDL2_image
 
 # Paths
-LIBRARY_PATHS = -Lengine -Lgame
+LIBRARY_PATHS = -L$(ENGINE_DIR) -L$(GAME_DIR)
 
 # Source files
-SRCS = $(wildcard engine/*.c game/systems/**/*.c game/systems/*.c game/entities/*.c game/entities/**/*.c game/*.c main.c)
+SRCS = $(wildcard $(ENGINE_DIR)/*.c $(GAME_DIR)/systems/**/*.c $(GAME_DIR)/systems/*.c $(GAME_DIR)/entities/*.c $(GAME_DIR)/entities/**/*.c $(GAME_DIR)/*.c $(MAIN_PATH))
 
 # Generate names of object files
 OBJS = $(SRCS:.c=.o)
@@ -27,8 +35,9 @@ $(EXEC): $(OBJS)
 
 # Recipe for building object files
 $(OBJS): %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
+	@echo "Building $@"
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
 # Recipe to clean the workspace
 clean:
 	rm -f $(EXEC) $(OBJS)

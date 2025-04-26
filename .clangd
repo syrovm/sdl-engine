@@ -1,5 +1,13 @@
 CompileFlags:
   Add:
-    - -I/usr/include/SDL2
-    - -I./engine
-    - -I./game
+    - "-I${workspaceFolder}/src/engine"
+    - "-I${workspaceFolder}/src/game"
+    - "-I/usr/include/SDL2"
+    - "-Wall"
+    - "-g"
+
+FallbackFlags:
+  Add:
+    - "-I${workspaceFolder}/src/engine"
+    - "-I${workspaceFolder}/src/game"
+    - "-I/usr/include/SDL2"
