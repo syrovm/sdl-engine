@@ -1,0 +1,5 @@
+CompileFlags:
+  Add:
+    - -I/usr/include/SDL2
+    - -I./engine
+    - -I./game

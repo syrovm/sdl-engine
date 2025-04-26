@@ -1,0 +1,18 @@
+{
+  "files.associations": {
+    "window.h": "c",
+    "sdl_image.h": "c",
+    "game_state.h": "c",
+    "gobject.h": "c",
+    "sdl_utils.h": "c",
+    "movement.h": "c",
+    "game_systems.h": "c",
+    "system.h": "c",
+    "*.tcc": "c",
+    "algorithm": "c",
+    "mutex": "c",
+    "shared_mutex": "c",
+    "stop_token": "c"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
+}
