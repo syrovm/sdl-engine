@@ -1,9 +1,7 @@
 #include <SDL.h>
 #include "game_state.h"
-#include "sdl_utils.h"
 #include "system.h"
 #include "game_systems.h"
-#include "player.h"
 
 void initGame(GameState* state) {
     Graphic* smile = createGraphic(state, "assets/smile.jpg", (SDL_Rect){250, 0, 50, 50}, MOVEMENT|CONTROL|GRAVITY);

@@ -1,7 +1,6 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 #include <SDL.h>
-#include "event_node.h"
 
 typedef struct Graphic {
     SDL_Texture* texture;
@@ -19,7 +18,7 @@ typedef struct GameState {
 } GameState;
 
 Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initialDstRect, int systemFlags);
-GameState initState();
+GameState initState(SDL_Renderer*);
 void renderFrame(GameState* state);
 void addObject(GameState* state, Graphic* object);
 void removeObject(GameState* state, Graphic* object);

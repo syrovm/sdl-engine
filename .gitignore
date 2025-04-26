@@ -53,3 +53,7 @@ dkms.conf
 
 #Clang stuff
 .cache/
+*.plist
+
+#Compiled binaries
+./main
