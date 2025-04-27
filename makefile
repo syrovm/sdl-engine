@@ -3,6 +3,8 @@ GAME_DIR := src/game
 ENGINE_DIR := src/engine
 MAIN_PATH := src/main.c
 
+OUTPUT_DIR := build
+
 EXTERNAL_DEPENDENCY_PATHS := /usr/include/SDL2
 
 CC = clang
@@ -24,7 +26,7 @@ SRCS = $(wildcard $(ENGINE_DIR)/*.c $(GAME_DIR)/systems/**/*.c $(GAME_DIR)/syste
 OBJS = $(SRCS:.c=.o)
 
 # Name of executable
-EXEC = main
+EXEC = $(OUTPUT_DIR)/main
 
 # Default recipe
 all: $(EXEC)

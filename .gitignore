@@ -56,4 +56,4 @@ dkms.conf
 *.plist
 
 #Compiled binaries
-./main
+build/
