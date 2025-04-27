@@ -10,17 +10,17 @@ EXTERNAL_DEPENDENCY_PATHS := /usr/include/SDL2
 CC = clang
 
 # Compiler and linker flags
-ENGINE_INCLUDES = $(shell find $(ENGINE_DIR) -type d)
-GAME_INCLUDES = $(shell find $(GAME_DIR) -type d)
+ENGINE_DIRS = $(shell find $(ENGINE_DIR) -type d)
+GAME_DIRS = $(shell find $(GAME_DIR) -type d)
 
-CFLAGS = $(foreach dir,$(ENGINE_INCLUDES),-I$(dir)) $(foreach dir,$(GAME_INCLUDES),-I$(dir)) $(foreach dir,$(EXTERNAL_DEPENDENCY_PATHS),-I$(dir)) -Wall -g 
+CFLAGS = $(foreach dir,$(ENGINE_DIRS),-I$(dir)) $(foreach dir,$(GAME_DIRS),-I$(dir)) $(foreach dir,$(EXTERNAL_DEPENDENCY_PATHS),-I$(dir)) -Wall -g 
 LDFLAGS = -lSDL2 -lSDL2_image
 
 # Paths
 LIBRARY_PATHS = -L$(ENGINE_DIR) -L$(GAME_DIR)
 
 # Source files
-SRCS = $(wildcard $(ENGINE_DIR)/*.c $(GAME_DIR)/systems/**/*.c $(GAME_DIR)/systems/*.c $(GAME_DIR)/entities/*.c $(GAME_DIR)/entities/**/*.c $(GAME_DIR)/*.c $(MAIN_PATH))
+SRCS = $(wildcard $(foreach dir,$(ENGINE_DIRS),$(dir)/*.c) $(foreach dir,$(GAME_DIRS),$(dir)/*.c) $(MAIN_PATH))
 
 # Generate names of object files
 OBJS = $(SRCS:.c=.o)

@@ -3,13 +3,11 @@
 #include <SDL.h>
 
 GameState initState(SDL_Renderer* renderer) {
-    Graphic** initList = malloc(sizeof(Graphic*));
-    initList[0] = NULL;
     GameState g = (GameState){
-        initList,
-        SDL_GetKeyboardState(NULL),
-        1,
-        renderer
+        .objects = NULL,
+        .keyboardState = SDL_GetKeyboardState(NULL),
+        .object_length = 0,
+        .renderer = renderer
     };
 
     return g;
@@ -17,6 +15,8 @@ GameState initState(SDL_Renderer* renderer) {
 
 void renderFrame(GameState* state) {
     SDL_RenderClear(state->renderer);
+    if(!state->objects)
+        return;
     for(int i = 0; i < state->object_length; i++) {
         Graphic* object = state->objects[i];
         if(object != NULL) {
@@ -27,9 +27,20 @@ void renderFrame(GameState* state) {
 }
 
 void addObject(GameState* state, Graphic* object) {
-    state->objects = realloc(state->objects, sizeof(Graphic*) * (state->object_length + 1));
-    state->objects[state->object_length] = object;
-    state->object_length++;
+    if(state->objects == NULL) {
+        state->object_length = 1;
+        state->objects = malloc(sizeof(Graphic*));
+    }
+    else
+        state->objects = realloc(state->objects, sizeof(Graphic*) * (++state->object_length));
+    state->objects[state->object_length - 1] = object;
+}
+
+void deallocGObject(Graphic* object) {
+    if(object != NULL) {
+        SDL_DestroyTexture(object->texture);
+    }
+    free(object);
 }
 
 void removeObject(GameState* state, Graphic* object) {
@@ -41,15 +52,17 @@ void removeObject(GameState* state, Graphic* object) {
         }
     }
 
-    SDL_DestroyTexture(state->objects[indexToRemove]->texture);
-
     if(indexToRemove != -1) {
+        deallocGObject(state->objects[indexToRemove]); 
         for(int i = indexToRemove; i < state->object_length - 1; i++) {
             state->objects[i] = state->objects[i + 1];
         }
 
-        state->objects = realloc(state->objects, sizeof(Graphic*) * (state->object_length - 1));
         state->object_length -= 1;
+	if(state->object_length > 0)
+            state->objects = realloc(state->objects, sizeof(Graphic*) * (state->object_length));
+        else
+            free(state->objects);
     }
 }
 
@@ -66,18 +79,11 @@ Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initi
     return result;
 }
 
-void deallocGObject(Graphic* object) {
-    if(object != NULL) {
-        SDL_DestroyTexture(object->texture);
-    }
-    free(object);
-}
 
 void deallocState(GameState* state) {
     for(int i = 0; i < state->object_length; i++) {
-        deallocGObject(state->objects[i]);
+        removeObject(state, state->objects[i]);
     }
-    free(state->objects);
     SDL_DestroyRenderer(state->renderer);
 }
 
