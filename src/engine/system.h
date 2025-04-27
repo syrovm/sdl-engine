@@ -14,4 +14,6 @@ typedef struct System {
     void (*applySystem)(GameState*, Graphic*);
 } System;
 
+void applySystem(Graphic*, int);
+
 #endif

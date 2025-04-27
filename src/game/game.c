@@ -4,7 +4,13 @@
 #include "game_systems.h"
 
 void initGame(GameState* state) {
-    Graphic* smile = createGraphic(state, "assets/smile.jpg", (SDL_Rect){250, 0, 50, 50}, MOVEMENT|CONTROL|GRAVITY);
+    Graphic* smile = createGraphic(state, "assets/smile.jpg", (SDL_Rect){
+        .x = 250, 
+        .y = 0, 
+        .w = 50,
+        .h = 50
+    });
+    applySystem(smile, MOVEMENT|CONTROL|GRAVITY);
     addObject(state, smile);
 }
 

@@ -53,15 +53,14 @@ void removeObject(GameState* state, Graphic* object) {
     }
 }
 
-Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initialDstRect, int systemFlags) {
+Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initialDstRect) {
     SDL_Texture* texture = createTexture(state->renderer, texturePath);
     Graphic* result = malloc(sizeof(Graphic));
     *result = (Graphic){
-        texture,
-        initialDstRect,
-        systemFlags,
-        0.0,
-        0.0
+        .texture = texture,
+        .positionRect = initialDstRect,
+        .x_vel = 0.0,
+        .y_vel = 0.0
     };
 
     return result;

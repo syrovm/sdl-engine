@@ -17,7 +17,7 @@ typedef struct GameState {
     SDL_Renderer* renderer;
 } GameState;
 
-Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initialDstRect, int systemFlags);
+Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initialDstRect);
 GameState initState(SDL_Renderer*);
 void renderFrame(GameState* state);
 void addObject(GameState* state, Graphic* object);
