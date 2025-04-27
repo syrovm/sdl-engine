@@ -8,7 +8,7 @@ void applyGravity(GameState* state, Graphic* object) {
         return;
     }
 
-    object->y_vel += 0.1;
+    addVector(&object->velocity, (Vector){ .x = 0, .y = 0.1 });
 }
 
 System gravitySystem = {

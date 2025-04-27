@@ -72,8 +72,7 @@ Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initi
     *result = (Graphic){
         .texture = texture,
         .positionRect = initialDstRect,
-        .x_vel = 0.0,
-        .y_vel = 0.0
+        .velocity = (Vector){ .x = 0, .y = 0 }
     };
 
     return result;

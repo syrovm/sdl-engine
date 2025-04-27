@@ -1,6 +1,7 @@
 #include "controls.h"
 #include "game_state.h"
 #include "system.h"
+#include "vector.h"
 
 void applyControls(GameState* state, Graphic* object) {
     if(object == NULL || (object->system & CONTROL) != CONTROL) {
@@ -9,18 +10,18 @@ void applyControls(GameState* state, Graphic* object) {
 
     static int jumpHeld = 0;
 
+    Vector left =  (Vector){ .x = -0.5 };
+    Vector right = (Vector){ .x =  0.5 };
+
     if(state->keyboardState[SDL_SCANCODE_A]) {
-        object->x_vel -= 0.5f;
-    }
-    if(state->keyboardState[SDL_SCANCODE_S]) {
-        object->y_vel += 0.5f;
+        addVector(&object->velocity, left);
     }
     if(state->keyboardState[SDL_SCANCODE_D]) {
-        object->x_vel += 0.5f;
+        addVector(&object->velocity, right);
     }
 
     if(state->keyboardState[SDL_SCANCODE_SPACE] && !jumpHeld) {
-        object->y_vel = -5.0f;
+        object->velocity.y = -5.0;
         jumpHeld = 1;
     }
     else if(!state->keyboardState[SDL_SCANCODE_SPACE] && jumpHeld) { 

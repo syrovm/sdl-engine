@@ -1,13 +1,13 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 #include <SDL.h>
+#include "vector.h"
 
 typedef struct Graphic {
     SDL_Texture* texture;
     SDL_Rect positionRect;
     int system;
-    double x_vel;
-    double y_vel;
+    Vector velocity;
 } Graphic;
 
 typedef struct GameState {
