@@ -2,14 +2,10 @@
 #include "game_state.h"
 #include "system.h"
 #include "game_systems.h"
+#include "vector.h"
 
 void initGame(GameState* state) {
-    Graphic* smile = createGraphic(state, "assets/smile.jpg", (SDL_Rect){
-        .x = 250, 
-        .y = 0, 
-        .w = 50,
-        .h = 50
-    });
+    Graphic* smile = createGraphic(state, "assets/smile.jpg", (Vector){ .x = 250, .y = 0 }, 50, 50 );
     applySystem(smile, MOVEMENT|CONTROL|GRAVITY);
     addObject(state, smile);
 }

@@ -19,8 +19,14 @@ void renderFrame(GameState* state) {
         return;
     for(int i = 0; i < state->object_length; i++) {
         Graphic* object = state->objects[i];
+        SDL_Rect objectRect = (SDL_Rect){
+            .x = object->position.x,
+            .y = object->position.y,
+            .w = object->width,
+            .h = object->height
+        };
         if(object != NULL) {
-            SDL_RenderCopy(state->renderer, object->texture, NULL, &object->positionRect);
+            SDL_RenderCopy(state->renderer, object->texture, NULL, &objectRect);
         }
     }
     SDL_RenderPresent(state->renderer);
@@ -59,19 +65,21 @@ void removeObject(GameState* state, Graphic* object) {
         }
 
         state->object_length -= 1;
-	if(state->object_length > 0)
+        if(state->object_length > 0)
             state->objects = realloc(state->objects, sizeof(Graphic*) * (state->object_length));
         else
             free(state->objects);
     }
 }
 
-Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initialDstRect) {
+Graphic* createGraphic(GameState* state, const char* texturePath, Vector position, int width, int height) {
     SDL_Texture* texture = createTexture(state->renderer, texturePath);
     Graphic* result = malloc(sizeof(Graphic));
     *result = (Graphic){
         .texture = texture,
-        .positionRect = initialDstRect,
+        .position = position,
+        .width = width,
+        .height = height,
         .velocity = (Vector){ .x = 0, .y = 0 }
     };
 

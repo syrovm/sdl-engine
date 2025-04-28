@@ -9,8 +9,8 @@ void applyMovement(GameState* state, Graphic* object) {
     }
     
     //TODO: do this using vectors 
-    object->positionRect.x += object->velocity.x;
-    object->positionRect.y += object->velocity.y;
+    object->position.x += object->velocity.x;
+    object->position.y += object->velocity.y;
 }
 
 System movementSystem = {

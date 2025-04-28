@@ -5,8 +5,10 @@
 
 typedef struct Graphic {
     SDL_Texture* texture;
-    SDL_Rect positionRect;
     int system;
+    int width;
+    int height;
+    Vector position;
     Vector velocity;
 } Graphic;
 
@@ -17,7 +19,7 @@ typedef struct GameState {
     SDL_Renderer* renderer;
 } GameState;
 
-Graphic* createGraphic(GameState* state, const char* texturePath, SDL_Rect initialDstRect);
+Graphic* createGraphic(GameState* state, const char* texturePath, Vector, int, int);
 GameState initState(SDL_Renderer*);
 void renderFrame(GameState* state);
 void addObject(GameState* state, Graphic* object);
