@@ -1,9 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "game_state.h"
+#include "game_actor.h"
 
 typedef struct Player {
-    Graphic* graphic;
+    GameActor* graphic;
     int systems;
 } Player;
 

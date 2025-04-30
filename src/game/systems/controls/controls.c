@@ -1,5 +1,6 @@
 #include "controls.h"
 #include "game_state.h"
+#include "game_actor.h"
 #include "system.h"
 #include "vector.h"
 #include "game_systems.h"

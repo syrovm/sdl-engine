@@ -1,5 +1,4 @@
 #include "game_state.h"
-#include "sdl_utils.h"
 #include <SDL.h>
 
 GameState initState(SDL_Renderer* renderer) {
@@ -71,21 +70,6 @@ void removeObject(GameState* state, GameActor* object) {
             free(state->objects);
     }
 }
-
-GameActor* createGameActor(GameState* state, const char* texturePath, Vector position, int width, int height) {
-    SDL_Texture* texture = createTexture(state->renderer, texturePath);
-    GameActor* result = malloc(sizeof(GameActor));
-    *result = (GameActor){
-        .texture = texture,
-        .position = position,
-        .width = width,
-        .height = height,
-        .velocity = (Vector){ .x = 0, .y = 0 }
-    };
-
-    return result;
-}
-
 
 void deallocState(GameState* state) {
     for(int i = 0; i < state->object_length; i++) {

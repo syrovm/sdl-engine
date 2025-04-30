@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include "game_state.h"
+#include "game_actor.h"
 #include "system.h"
 #include "game_systems.h"
 #include "vector.h"

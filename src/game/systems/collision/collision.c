@@ -1,6 +1,7 @@
 #include "collision.h"
 #include "system.h"
 #include "game_state.h"
+#include "game_actor.h"
 #include "game_systems.h"
 
 void applyCollision(GameState* state, GameActor* object) {

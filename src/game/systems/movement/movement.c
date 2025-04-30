@@ -2,6 +2,7 @@
 #include "game_systems.h"
 #include "movement.h"
 #include "game_state.h"
+#include "game_actor.h"
 #include "vector.h"
 
 void applyMovement(GameState* state, GameActor* object) {

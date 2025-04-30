@@ -1,6 +1,7 @@
 #include "system.h"
 #include "gravity.h"
 #include "game_state.h"
+#include "game_actor.h"
 #include "game_systems.h"
 
 void applyGravity(GameState* state, GameActor* object) {
