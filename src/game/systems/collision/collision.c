@@ -1,13 +1,14 @@
 #include "collision.h"
 #include "system.h"
 #include "game_state.h"
+#include "game_systems.h"
 
-void applyCollision(GameState* state, Graphic* object) {
+void applyCollision(GameState* state, GameActor* object) {
     if(!object || (object->system & COLLISION) != COLLISION) {
         return;
     }
 
-    Graphic** objectsChecked = calloc(1, sizeof(Graphic*));
+    GameActor** objectsChecked = calloc(1, sizeof(GameActor*));
     int objectsCheckedLength = 0;
 
     for(int i = 0; i < state->object_length; i++) {
@@ -26,8 +27,8 @@ void applyCollision(GameState* state, Graphic* object) {
         if(skip)
             continue;
 
-        Graphic* obj1 = state->objects[i];
-        Graphic* obj2 = object;
+        GameActor* obj1 = state->objects[i];
+        GameActor* obj2 = object;
 
         if(obj1->position.x < obj2->position.x + obj2->width &&
             obj1->position.x + obj1->width > obj2->position.x &&

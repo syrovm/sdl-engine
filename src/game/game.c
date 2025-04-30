@@ -5,7 +5,7 @@
 #include "vector.h"
 
 void initGame(GameState* state) {
-    Graphic* smile = createGraphic(state, "assets/smile.jpg", (Vector){ .x = 250, .y = 0 }, 50, 50 );
+    GameActor* smile = createGameActor(state, "assets/smile.jpg", (Vector){ .x = 250, .y = 0 }, 50, 50 );
     applySystem(smile, MOVEMENT|CONTROL|GRAVITY);
     addObject(state, smile);
 }

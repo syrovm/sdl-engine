@@ -18,7 +18,7 @@ void renderFrame(GameState* state) {
     if(!state->objects)
         return;
     for(int i = 0; i < state->object_length; i++) {
-        Graphic* object = state->objects[i];
+        GameActor* object = state->objects[i];
         SDL_Rect objectRect = (SDL_Rect){
             .x = object->position.x,
             .y = object->position.y,
@@ -32,24 +32,24 @@ void renderFrame(GameState* state) {
     SDL_RenderPresent(state->renderer);
 }
 
-void addObject(GameState* state, Graphic* object) {
+void addObject(GameState* state, GameActor* object) {
     if(state->objects == NULL) {
         state->object_length = 1;
-        state->objects = malloc(sizeof(Graphic*));
+        state->objects = malloc(sizeof(GameActor*));
     }
     else
-        state->objects = realloc(state->objects, sizeof(Graphic*) * (++state->object_length));
+        state->objects = realloc(state->objects, sizeof(GameActor*) * (++state->object_length));
     state->objects[state->object_length - 1] = object;
 }
 
-void deallocGObject(Graphic* object) {
+void destroyGameActor(GameActor* object) {
     if(object != NULL) {
         SDL_DestroyTexture(object->texture);
     }
     free(object);
 }
 
-void removeObject(GameState* state, Graphic* object) {
+void removeObject(GameState* state, GameActor* object) {
     int indexToRemove = -1;
     for(int i = 0; i < state->object_length; i++) {
         if(state->objects[i] == object) {
@@ -59,23 +59,23 @@ void removeObject(GameState* state, Graphic* object) {
     }
 
     if(indexToRemove != -1) {
-        deallocGObject(state->objects[indexToRemove]); 
+        destroyGameActor(state->objects[indexToRemove]); 
         for(int i = indexToRemove; i < state->object_length - 1; i++) {
             state->objects[i] = state->objects[i + 1];
         }
 
         state->object_length -= 1;
         if(state->object_length > 0)
-            state->objects = realloc(state->objects, sizeof(Graphic*) * (state->object_length));
+            state->objects = realloc(state->objects, sizeof(GameActor*) * (state->object_length));
         else
             free(state->objects);
     }
 }
 
-Graphic* createGraphic(GameState* state, const char* texturePath, Vector position, int width, int height) {
+GameActor* createGameActor(GameState* state, const char* texturePath, Vector position, int width, int height) {
     SDL_Texture* texture = createTexture(state->renderer, texturePath);
-    Graphic* result = malloc(sizeof(Graphic));
-    *result = (Graphic){
+    GameActor* result = malloc(sizeof(GameActor));
+    *result = (GameActor){
         .texture = texture,
         .position = position,
         .width = width,

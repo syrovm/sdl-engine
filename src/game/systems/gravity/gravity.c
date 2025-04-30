@@ -1,8 +1,9 @@
 #include "system.h"
 #include "gravity.h"
 #include "game_state.h"
+#include "game_systems.h"
 
-void applyGravity(GameState* state, Graphic* object) {
+void applyGravity(GameState* state, GameActor* object) {
     if(object == NULL 
         || (object->system & GRAVITY) != GRAVITY) {
         return;

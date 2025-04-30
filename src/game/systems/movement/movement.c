@@ -1,9 +1,10 @@
 #include "system.h"
+#include "game_systems.h"
 #include "movement.h"
 #include "game_state.h"
 #include "vector.h"
 
-void applyMovement(GameState* state, Graphic* object) {
+void applyMovement(GameState* state, GameActor* object) {
     if(object == NULL || (object->system & MOVEMENT) != MOVEMENT) {
         return;
     }

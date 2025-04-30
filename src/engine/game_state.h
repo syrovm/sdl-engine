@@ -3,27 +3,27 @@
 #include <SDL.h>
 #include "vector.h"
 
-typedef struct Graphic {
+typedef struct GameActor {
     SDL_Texture* texture;
     int system;
     int width;
     int height;
     Vector position;
     Vector velocity;
-} Graphic;
+} GameActor;
 
 typedef struct GameState {
-    Graphic** objects;
+    GameActor** objects;
     const Uint8* keyboardState;
     size_t object_length;
     SDL_Renderer* renderer;
 } GameState;
 
-Graphic* createGraphic(GameState* state, const char* texturePath, Vector, int, int);
+GameActor* createGameActor(GameState* state, const char* texturePath, Vector, int, int);
 GameState initState(SDL_Renderer*);
 void renderFrame(GameState* state);
-void addObject(GameState* state, Graphic* object);
-void removeObject(GameState* state, Graphic* object);
+void addObject(GameState* state, GameActor* object);
+void removeObject(GameState* state, GameActor* object);
 void deallocState(GameState* state);
 
 #endif

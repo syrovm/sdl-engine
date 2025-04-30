@@ -2,8 +2,9 @@
 #include "game_state.h"
 #include "system.h"
 #include "vector.h"
+#include "game_systems.h"
 
-void applyControls(GameState* state, Graphic* object) {
+void applyControls(GameState* state, GameActor* object) {
     if(object == NULL || (object->system & CONTROL) != CONTROL) {
         return;
     }
